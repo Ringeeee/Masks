@@ -173,6 +173,7 @@ size = Vector2(12, 19)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 process_mode = 3
+collision_layer = 2
 script = ExtResource("1_y8w33")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

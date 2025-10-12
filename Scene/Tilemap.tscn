@@ -524,7 +524,6 @@ scale = Vector2(0.625, 0.625)
 [node name="AnimatedSprite2D2" parent="TileMap/Fackeln" instance=ExtResource("3_lqoaf")]
 position = Vector2(305.00003, -31)
 scale = Vector2(0.625, 0.625)
-frame_progress = 0.0
 
 [node name="AnimatedSprite2D3" parent="TileMap/Fackeln" instance=ExtResource("3_lqoaf")]
 position = Vector2(385.00003, -31.000002)

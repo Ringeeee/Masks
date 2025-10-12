@@ -180,4 +180,4 @@ animations = [{
 sprite_frames = SubResource("SpriteFrames_b157h")
 animation = &"Idle"
 autoplay = "Idle"
-frame_progress = 0.6762059
+frame_progress = 0.70921355

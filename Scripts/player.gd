@@ -1,10 +1,14 @@
 extends CharacterBody2D
 
 
-const SPEED = 100.0
-const JUMP_VELOCITY = -100.0
+const SPEED := 100.0
+const JUMP_VELOCITY := -100.0
+const active_mask := 0 #0 = nothing, 1 = sword, 2 = ? 
 
-const active_mask = 0 #0 = nothing, 1 = sword, 2 = ? 
+var health := 100	#to be changed 
+
+var attack_type: String
+var current_attack: bool # ?? 
 
 #Ich weiß noch nicht was der Spieler geanau machen soll also ist das erst mal so 
 

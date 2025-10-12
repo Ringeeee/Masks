@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cbr6jqc6vjlyv"]
+[gd_scene load_steps=11 format=3 uid="uid://cbr6jqc6vjlyv"]
 
 [ext_resource type="Texture2D" uid="uid://cnkwdmvxqgosa" path="res://Assets/Tiles/tileset3.png" id="1_ncwjw"]
 
@@ -18,6 +18,22 @@ region = Rect2(32, 0, 16, 34)
 atlas = ExtResource("1_ncwjw")
 region = Rect2(48, 0, 16, 34)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ncwjw"]
+atlas = ExtResource("1_ncwjw")
+region = Rect2(0, 0, 16, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_02ryy"]
+atlas = ExtResource("1_ncwjw")
+region = Rect2(16, 0, 16, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pmk0b"]
+atlas = ExtResource("1_ncwjw")
+region = Rect2(32, 0, 16, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cb3pb"]
+atlas = ExtResource("1_ncwjw")
+region = Rect2(48, 0, 16, 17)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_02ryy"]
 animations = [{
 "frames": [{
@@ -36,10 +52,27 @@ animations = [{
 "loop": true,
 "name": &"Fackel_Feuer",
 "speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ncwjw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_02ryy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pmk0b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cb3pb")
+}],
+"loop": true,
+"name": &"Fackel_Feuer2",
+"speed": 4.0
 }]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_02ryy")
-animation = &"Fackel_Feuer"
-autoplay = "Fackel_Feuer"
-frame_progress = 0.9132185
+animation = &"Fackel_Feuer2"
+autoplay = "Fackel_Feuer2"
+frame_progress = 0.66600835

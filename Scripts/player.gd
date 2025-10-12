@@ -1,21 +1,26 @@
 extends CharacterBody2D
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 
-const SPEED := 100.0
-const JUMP_VELOCITY := -100.0
+const SPEED := 200.0
+const JUMP_VELOCITY := -300.0
 const active_mask := 0 #0 = nothing, 1 = sword, 2 = ? 
 
 var health := 100	#to be changed 
 
-var attack_type: String
-var current_attack: bool # ?? 
+var cooldown_time := 0.5 # Sekunden
+var last_action_time := -cooldown_time
+var is_allive := true
 
 #Ich weiß noch nicht was der Spieler geanau machen soll also ist das erst mal so 
 
 
 #wählt welche maske ist aktive
 
+
 func _physics_process(delta: float) -> void:
+	if not is_allive:	#idk if it works 
+		return
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -33,12 +38,44 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
-	#attacks 
-	if Input.is_action_just_pressed("attack"):
-		print("attack")
+	
+		#flip the sprite
+	if direction > 0:
+		animated_sprite.flip_h = false	
+	elif direction < 0:
+		animated_sprite.flip_h = true
+	
+	#play animations
+	if is_on_floor():
+		if direction == 0:
+			animated_sprite.play("idle")
+		else:
+			animated_sprite.play("run")
+	else:
+		animated_sprite.play("jump")
 		
-	#pick mask/item up 
-	if Input.is_action_just_pressed("pickup"):	#needs a hitbox to pickup 
+		
+
+
+# merkt sich einen Zeitpunkt wenn eine Attacke ausgeführt wurde, 
+# wenn diese in dem Zeitraum von cooldown_timer passiert
+# wird diese ignoriert FUCK CHAT GPT 
+
+func _process(delta):
+	if Input.is_action_just_pressed("attack"):
+		var current_time = Time.get_ticks_msec() / 1000.0
+		if current_time - last_action_time >= cooldown_time:
+			do_action()
+			last_action_time = current_time
+	
+	if Input.is_action_just_pressed("pickup"):
 		print("pickup")
+
+func do_action():
+	print("Attack!")
+# hier deine Aktion z. B. Animation abspielen, Projektil schießen usw.
+
+	
+	
 	
 	

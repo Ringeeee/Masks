@@ -557,7 +557,7 @@ position = Vector2(-34, -46)
 scale = Vector2(0.3, 0.3)
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("6_lqoaf")]
-position = Vector2(339, 1)
+position = Vector2(73, -70)
 
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("7_042xc")]
 position = Vector2(158, -56)

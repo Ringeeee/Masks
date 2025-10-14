@@ -6,12 +6,12 @@ class_name Enemy
 @onready var detection_area: Area2D = $Area2D
 
 
+
 var target: Player
 var direction := 0
 var player_in_range := false
-const SPEED := 100.0
-
 var health := 100
+const SPEED := 100.0
 
 func _physics_process(delta: float) -> void:
 
@@ -27,3 +27,13 @@ func _physics_process(delta: float) -> void:
 			animated_sprite.play("Idle")
 			
 	move_and_slide()
+	
+func take_damage(amount: int):
+	health -= amount
+	print("Enemy hit! Health:", health)
+	if health <= 0:
+		die()
+
+	
+func die():
+	queue_free()

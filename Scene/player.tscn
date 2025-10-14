@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://chy0jw0qguwfi"]
+[gd_scene load_steps=49 format=3 uid="uid://chy0jw0qguwfi"]
 
 [ext_resource type="Script" uid="uid://b6r486k7lkur4" path="res://Scripts/player.gd" id="1_y8w33"]
 [ext_resource type="Texture2D" uid="uid://cyaj1dcel67h" path="res://Assets/sprites/SHADOW Series - The Blind Huntress/Sprite Sheet/1 - Idle.png" id="2_58ae2"]
@@ -183,7 +183,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"attack",
-"speed": 8.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -218,7 +218,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"death",
-"speed": 7.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -259,7 +259,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
-"speed": 9.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -276,7 +276,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"jump",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -311,12 +311,11 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kelma"]
 size = Vector2(9, 29)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_y8w33"]
-size = Vector2(20, 7)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r6jsd"]
+radius = 12.0
+height = 38.0
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_xa75v"]
-
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 process_mode = 3
 collision_layer = 2
 script = ExtResource("1_y8w33")
@@ -325,22 +324,19 @@ script = ExtResource("1_y8w33")
 position = Vector2(0, -13)
 scale = Vector2(0.8, 0.8)
 sprite_frames = SubResource("SpriteFrames_r6jsd")
-animation = &"attack"
+animation = &"run"
 autoplay = "idle"
-frame_progress = 0.97846204
+frame_progress = 0.5565262
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 5
 position = Vector2(-1.5, -14.5)
 shape = SubResource("RectangleShape2D_kelma")
 
-[node name="sword_hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(10, -9.5)
-shape = SubResource("RectangleShape2D_y8w33")
-disabled = true
+[node name="AttackArea" type="Area2D" parent="."]
+monitoring = false
 
-[node name="Visible_hitbox" type="Sprite2D" parent="sword_hitbox"]
-visible = false
-position = Vector2(0, 2.3841858e-07)
-scale = Vector2(20, 6.9999995)
-texture = SubResource("CanvasTexture_xa75v")
+[node name="CollisionShape_hitbox" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(17, -14)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_r6jsd")

@@ -83,7 +83,16 @@ func do_action():
 	
 # hier deine Aktion z. B. Animation abspielen, Projektil schießen usw.
 
-	
-	
+	var can_attack = true
+
+	if Input.is_action_pressed("attack") and can_attack:
+		animated_sprite.play("attack")
+		can_attack = false
+		$CooldownTimer.start()
+		if hitbox.is_colliding():
+			for i in hitbox.get_colliders():
+				if i.is_in_group("Enemy"):
+					i.take_damage(20)
+
 	
 	

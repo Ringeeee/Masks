@@ -322,7 +322,7 @@ scale = Vector2(0.8, 0.8)
 sprite_frames = SubResource("SpriteFrames_r6jsd")
 animation = &"attack"
 autoplay = "idle"
-frame_progress = 0.925254
+frame_progress = 0.97846204
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 5

@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Player
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var sword_hitbox: CollisionShape2D = $sword_hitbox
+@onready var visible_hitbox: Sprite2D = $sword_hitbox/Visible_hitbox
 
 
 const SPEED := 200.0
@@ -12,6 +14,7 @@ var health := 100	#to be changed
 var cooldown_time := 0.5 # Sekunden
 var last_action_time := -cooldown_time
 var is_allive := true
+
 
 #Ich weiß noch nicht was der Spieler geanau machen soll also ist das erst mal so 
 
@@ -72,8 +75,12 @@ func _process(delta):
 	if Input.is_action_just_pressed("pickup"):
 		print("pickup")
 
+
 func do_action():
+	sword_hitbox.disabled = false 
+	visible_hitbox.disable = false
 	print("Attack!")
+	
 # hier deine Aktion z. B. Animation abspielen, Projektil schießen usw.
 
 	

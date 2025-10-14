@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://chy0jw0qguwfi"]
+[gd_scene load_steps=28 format=3 uid="uid://chy0jw0qguwfi"]
 
 [ext_resource type="Texture2D" uid="uid://dltgxjrw2uco5" path="res://Assets/sprites/knight.png" id="1_kelma"]
 [ext_resource type="Script" uid="uid://b6r486k7lkur4" path="res://Scripts/player.gd" id="1_y8w33"]
@@ -171,6 +171,11 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kelma"]
 size = Vector2(12, 19)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y8w33"]
+size = Vector2(20, 7)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_xa75v"]
+
 [node name="Player" type="CharacterBody2D"]
 process_mode = 3
 collision_layer = 2
@@ -187,3 +192,14 @@ frame_progress = 0.9469306
 z_index = 5
 position = Vector2(0, -9.5)
 shape = SubResource("RectangleShape2D_kelma")
+
+[node name="sword_hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(10, -9.5)
+shape = SubResource("RectangleShape2D_y8w33")
+disabled = true
+
+[node name="Visible_hitbox" type="Sprite2D" parent="sword_hitbox"]
+visible = false
+position = Vector2(0, 2.3841858e-07)
+scale = Vector2(20, 6.9999995)
+texture = SubResource("CanvasTexture_xa75v")

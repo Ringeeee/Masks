@@ -1,6 +1,7 @@
 extends CharacterBody2D
 class_name Player
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var hitbox: RayCast2D = $hitbox
 
 
 const SPEED := 200.0
@@ -76,7 +77,6 @@ func do_action():
 	print("Attack!")
 # hier deine Aktion z. B. Animation abspielen, Projektil schießen usw.
 
-	
-	
+
 	
 	

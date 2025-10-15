@@ -12,7 +12,7 @@ const JUMP_VELOCITY := -300.0
 var health := 100	#to be changed 
 var cooldown_time := 0.4 # Sekunden
 var last_action_time := -cooldown_time
-var is_allive := true
+var is_alive := true
 var cooldown := 0.0
 
 #Wird einmal am Anfang aufgerufen
@@ -22,7 +22,7 @@ func _ready():
 #Läuft (normalerweise) 60x die Sekunde
 func _physics_process(delta: float) -> void:
 
-	if not is_allive:	#idk if it works 
+	if not is_alive:	#idk if it works 
 		return #bricht die func ab 
 	
 	# Add the gravity.
@@ -102,14 +102,17 @@ func _basic_animation(direction):
 	else:
 		animated_sprite.play("jump")	
 
+
 func take_damage(amount: int):
+	if not is_alive : return
 	health -= amount
 	print("Player hit! Health:", health)
 	if health <= 0:
 		die()
 		
 func die():
-	is_allive = false
+	if not is_alive : return
+	is_alive = false
 	animated_sprite.play("death")
 	cooldown += Time.get_ticks_msec() + 100000
 	print("you are dead")

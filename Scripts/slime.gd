@@ -38,6 +38,7 @@ func _physics_process(delta: float) -> void:
 		_move_towards_player(delta)
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED * delta)
+		animated_sprite.position.y = -8
 		animated_sprite.play("Idle")
 	
 	move_and_slide()
@@ -46,7 +47,8 @@ func _move_towards_player(delta):
 	var direction_to_player = sign(target.global_position.x - global_position.x)
 	velocity.x = direction_to_player * SPEED
 	animated_sprite.flip_h = direction_to_player < 0
-	animated_sprite.play("Idle")
+	animated_sprite.position.y = -19
+	animated_sprite.play("Walk")
 
 
 # --- Spieler Schaden zufügen ---

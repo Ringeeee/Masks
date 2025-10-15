@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://l4xcbcx6c80t"]
+[gd_scene load_steps=37 format=3 uid="uid://l4xcbcx6c80t"]
 
 [ext_resource type="Script" uid="uid://k4g24hwghuun" path="res://Scripts/slime.gd" id="1_24dpw"]
 [ext_resource type="Texture2D" uid="uid://bnpypag522qga" path="res://Assets/sprites/SlimePumpkin1/slimepumpkin1.png" id="1_y5q3a"]
@@ -23,6 +23,22 @@ region = Rect2(168, 0, 56, 57)
 [sub_resource type="AtlasTexture" id="AtlasTexture_t5fun"]
 atlas = ExtResource("3_annkd")
 region = Rect2(224, 0, 56, 57)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p18jv"]
+atlas = ExtResource("1_y5q3a")
+region = Rect2(0, 220, 66, 55)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d74an"]
+atlas = ExtResource("1_y5q3a")
+region = Rect2(66, 220, 66, 55)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hqxcs"]
+atlas = ExtResource("1_y5q3a")
+region = Rect2(132, 220, 66, 55)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xix2v"]
+atlas = ExtResource("1_y5q3a")
+region = Rect2(198, 220, 66, 55)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_khwku"]
 atlas = ExtResource("1_y5q3a")
@@ -100,10 +116,6 @@ region = Rect2(726, 350, 66, 70)
 atlas = ExtResource("1_y5q3a")
 region = Rect2(792, 350, 66, 70)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_p18jv"]
-atlas = ExtResource("1_y5q3a")
-region = Rect2(0, 70, 66, 70)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_p18jv"]
 animations = [{
 "frames": [{
@@ -125,6 +137,29 @@ animations = [{
 "loop": true,
 "name": &"Idle",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p18jv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d74an")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqxcs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xix2v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqxcs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d74an")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -195,14 +230,6 @@ animations = [{
 "loop": true,
 "name": &"death",
 "speed": 12.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_p18jv")
-}],
-"loop": true,
-"name": &"new_animation",
-"speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_24dpw"]
@@ -224,8 +251,9 @@ script = ExtResource("1_24dpw")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_p18jv")
-animation = &"Idle"
+animation = &"Walk"
 autoplay = "Idle"
+frame_progress = 0.4269043
 
 [node name="vision" type="Area2D" parent="."]
 

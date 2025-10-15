@@ -23,9 +23,6 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("left", "right")
 	
-	if not is_allive:	#idk if it works 
-		return #bricht die func ab 
-	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta

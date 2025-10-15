@@ -3,8 +3,7 @@ class_name Enemy
 
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var detection_area: Area2D = $Area2D
-
+@onready var player_hitbox: Area2D = $player_hitbox
 
 
 var target: Player
@@ -13,9 +12,10 @@ var player_in_range := false
 var health := 100
 const SPEED := 100.0
 
+func _ready():
+	player_hitbox.connect("body_entered", Callable(self, "_on_attack_area_body_entered"))
+
 func _physics_process(delta: float) -> void:
-
-
 	# Add the gravity.
 	if not is_on_floor():	
 		
@@ -27,6 +27,16 @@ func _physics_process(delta: float) -> void:
 			animated_sprite.play("Idle")
 			
 	move_and_slide()
+	
+func _on_attack_area_body_entered(body):
+	if not body.is_in_group("Player"):
+		return
+	print("idk")
+	if not body.has_method("take_damage"):
+		return
+		
+	body.take_damage(25)
+	
 	
 func take_damage(amount: int):
 	health -= amount

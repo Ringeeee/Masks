@@ -507,7 +507,6 @@ sources/1 = SubResource("TileSetAtlasSource_op66y")
 [node name="Player" parent="." instance=ExtResource("4_042xc")]
 unique_name_in_owner = true
 top_level = true
-z_index = 5
 position = Vector2(-13, -10)
 collision_layer = 1
 collision_priority = 2.0

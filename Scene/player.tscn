@@ -324,9 +324,8 @@ script = ExtResource("1_y8w33")
 position = Vector2(0, -13)
 scale = Vector2(0.8, 0.8)
 sprite_frames = SubResource("SpriteFrames_r6jsd")
-animation = &"run"
+animation = &"attack"
 autoplay = "idle"
-frame_progress = 0.5565262
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 5
@@ -336,7 +335,7 @@ shape = SubResource("RectangleShape2D_kelma")
 [node name="AttackArea" type="Area2D" parent="."]
 monitoring = false
 
-[node name="CollisionShape_hitbox" type="CollisionShape2D" parent="AttackArea"]
+[node name="sword_hitbox" type="CollisionShape2D" parent="AttackArea"]
 position = Vector2(17, -14)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_r6jsd")

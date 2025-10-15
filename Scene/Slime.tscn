@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://l4xcbcx6c80t"]
+[gd_scene load_steps=27 format=3 uid="uid://l4xcbcx6c80t"]
 
 [ext_resource type="Script" uid="uid://k4g24hwghuun" path="res://Scripts/slime.gd" id="1_24dpw"]
 [ext_resource type="Texture2D" uid="uid://bnpypag522qga" path="res://Assets/sprites/SlimePumpkin1/slimepumpkin1.png" id="1_y5q3a"]
@@ -148,7 +148,14 @@ radius = 144.3468
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p18jv"]
 radius = 8.0
-height = 31.999998
+height = 34.0
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_annkd"]
+points = PackedVector2Array(-10, 0, -4, -15, 4, -15, 10, 0)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_da4w4"]
+radius = 15.0
+height = 50.0
 
 [node name="CharacterBody2D" type="CharacterBody2D" groups=["Enemy"]]
 script = ExtResource("1_24dpw")
@@ -158,22 +165,27 @@ position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_p18jv")
 animation = &"Idle"
 autoplay = "Idle"
-frame_progress = 0.48991677
+frame_progress = 0.9059462
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="vision" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="vision"]
 position = Vector2(2, -12)
 shape = SubResource("CircleShape2D_24dpw")
 
-[node name="Area2D2" type="Area2D" parent="."]
+[node name="damage_hitbox" type="Area2D" parent="."]
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D2"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="damage_hitbox"]
 position = Vector2(0, -7)
 rotation = -1.5550884
 shape = SubResource("CapsuleShape2D_p18jv")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(0, -6)
+[node name="Enviroment_Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("ConvexPolygonShape2D_annkd")
+
+[node name="player_hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_hitbox"]
+position = Vector2(0, -8)
 rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_p18jv")
+shape = SubResource("CapsuleShape2D_da4w4")

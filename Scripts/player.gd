@@ -2,29 +2,29 @@ extends CharacterBody2D
 class_name Player
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_area: Area2D = $AttackArea
-@onready var sword_hitbox: CollisionShape2D = $AttackArea/CollisionShape_hitbox
-
-
+@onready var sword_hitbox: CollisionShape2D = $AttackArea/sword_hitbox
 
 
 const SPEED := 200.0
 const JUMP_VELOCITY := -300.0
-const active_mask := 0 #0 = nothing, 1 = sword, 2 = ? 
+#const active_mask := 0 #0 = nothing, 1 = sword, 2 = ? 
 
 var health := 100	#to be changed 
 var cooldown_time := 0.4 # Sekunden
 var last_action_time := -cooldown_time
 var is_allive := true
 var cooldown := 0.0
-#Ich weiß noch nicht was der Spieler geanau machen soll also ist das erst mal so 
 
+#Wird einmal am Anfang aufgerufen
+func _ready():
+	attack_area.connect("body_entered", Callable(self, "_on_attack_area_body_entered"))
 
-#wählt welche maske ist aktive
-
-
+#Läuft (normalerweise) 60x die Sekunde
 func _physics_process(delta: float) -> void:
+
 	if not is_allive:	#idk if it works 
-		return
+		return #bricht die func ab 
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -41,9 +41,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
-	move_and_slide()
+	move_and_slide() #idk was das macht 
 	
-		#flip the sprite
+		#flip the sprite and Hitbox wenn noetig
 	if direction > 0:
 		sword_hitbox.position.x = 17
 		animated_sprite.flip_h = false	
@@ -51,39 +51,26 @@ func _physics_process(delta: float) -> void:
 		sword_hitbox.position.x = -17
 		animated_sprite.flip_h = true
 	
-	#play animations
-	
-	if cooldown > Time.get_ticks_msec():		
-		return
 
-	if is_on_floor():
-		if direction == 0:
-			animated_sprite.play("idle")
-		else:
-			animated_sprite.play("run")
-	else:
-		animated_sprite.play("jump")
-
-
-# merkt sich einen Zeitpunkt wenn eine Attacke ausgeführt wurde, 
-# wenn diese in dem Zeitraum von cooldown_timer passiert
-# wird diese ignoriert FUCK CHAT GPT 
-func _ready():
-	attack_area.connect("body_entered", Callable(self, "_on_attack_area_body_entered"))
-
-
+#Läuft FPS abhänig
 func _process(delta):
+	var direction := Input.get_axis("left", "right")
+	_basic_animation(direction)
+
 	if Input.is_action_just_pressed("attack"):
 		var current_time = Time.get_ticks_msec() / 1000.0
 		if current_time - last_action_time >= cooldown_time:
-			do_action()
+			_do_action()
 			last_action_time = current_time
 	
 	if Input.is_action_just_pressed("pickup"):
 		print("pickup")
 
+#Selbst eingebaute Functionen
 
-func do_action():
+func _do_action():
+	if cooldown > Time.get_ticks_msec():		
+		return #beendendet die Funktion frühzeitig 
 	animated_sprite.play("attack")
 	cooldown = Time.get_ticks_msec() + 400 #abhänig von der animations zeit
 		
@@ -95,6 +82,34 @@ func do_action():
 	attack_area.monitoring = false
 	
 func _on_attack_area_body_entered(body):
-	if body.is_in_group("Enemy"):
-		if body.has_method("take_damage"):
-			body.take_damage(20)
+	if not body.is_in_group("Enemy"):
+		return
+		
+	if not body.has_method("take_damage"):
+		return
+		
+	body.take_damage(25)
+
+func _basic_animation(direction):	
+	if cooldown > Time.get_ticks_msec():		
+		return #beendendet die Funktion frühzeitig 
+
+	if is_on_floor():
+		if direction == 0:
+			animated_sprite.play("idle")
+		else:
+			animated_sprite.play("run")
+	else:
+		animated_sprite.play("jump")	
+
+func take_damage(amount: int):
+	health -= amount
+	print("Player hit! Health:", health)
+	if health <= 0:
+		die()
+		
+func die():
+	is_allive = false
+	animated_sprite.play("death")
+	cooldown += Time.get_ticks_msec() + 100000
+	print("you are dead")

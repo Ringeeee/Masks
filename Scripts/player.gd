@@ -7,7 +7,7 @@ class_name Player
 
 const SPEED := 200.0
 const JUMP_VELOCITY := -300.0
-#const active_mask := 0 #0 = nothing, 1 = sword, 2 = ? 
+const active_mask := 1 #0 = nothing, 1 = sword, 2 = ? 
 
 var health := 100	#to be changed 
 var cooldown_time := 0.4 # Sekunden
@@ -21,7 +21,8 @@ func _ready():
 
 #Läuft (normalerweise) 60x die Sekunde
 func _physics_process(delta: float) -> void:
-
+	var direction := Input.get_axis("left", "right")
+	
 	if not is_allive:	#idk if it works 
 		return #bricht die func ab 
 	
@@ -35,7 +36,7 @@ func _physics_process(delta: float) -> void:
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("left", "right")
+	
 	if direction:
 		velocity.x = direction * SPEED
 	else:
@@ -60,7 +61,14 @@ func _process(delta):
 	if Input.is_action_just_pressed("attack"):
 		var current_time = Time.get_ticks_msec() / 1000.0
 		if current_time - last_action_time >= cooldown_time:
-			_do_action()
+			if active_mask == 0:
+				print("nothing")
+			elif active_mask == 1:
+				print("sword")
+				_do_attack()
+			elif active_mask == 2:
+				print("dash")
+				_do_dash()
 			last_action_time = current_time
 	
 	if Input.is_action_just_pressed("pickup"):
@@ -68,15 +76,16 @@ func _process(delta):
 
 #Selbst eingebaute Functionen
 
-func _do_action():
+func _do_dash():
+	print("_do_dash")
+
+func _do_attack():
 	if cooldown > Time.get_ticks_msec():		
 		return #beendendet die Funktion frühzeitig 
 	animated_sprite.play("attack")
-	cooldown = Time.get_ticks_msec() + 400 #abhänig von der animations zeit
-		
+	cooldown = Time.get_ticks_msec() + 400 #abhänig von der animations zeit		
 	# Hitbox aktivieren
-	attack_area.monitoring = true
-	
+	attack_area.monitoring = true	
 	# Deaktiviere sie nach kurzer Zeit (z. B. nach 0.2 Sekunden)
 	await get_tree().create_timer(0.2).timeout
 	attack_area.monitoring = false

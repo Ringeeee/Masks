@@ -1,11 +1,15 @@
-[gd_scene load_steps=49 format=3 uid="uid://chy0jw0qguwfi"]
+[gd_scene load_steps=57 format=3 uid="uid://chy0jw0qguwfi"]
 
 [ext_resource type="Script" uid="uid://b6r486k7lkur4" path="res://Scripts/player.gd" id="1_y8w33"]
 [ext_resource type="Texture2D" uid="uid://cyaj1dcel67h" path="res://Assets/sprites/SHADOW Series - The Blind Huntress/Sprite Sheet/1 - Idle.png" id="2_58ae2"]
 [ext_resource type="Texture2D" uid="uid://b77qrw1wk41xa" path="res://Assets/sprites/SHADOW Series - The Blind Huntress/Sprite Sheet/11 - attack 3.png" id="2_r6jsd"]
+[ext_resource type="Texture2D" uid="uid://bvcf23wqjembx" path="res://Assets/sprites/Bat/Png_animation/Bat1.png" id="3_c68nv"]
 [ext_resource type="Texture2D" uid="uid://beny13ovdkase" path="res://Assets/sprites/SHADOW Series - The Blind Huntress/Sprite Sheet/15 - death.png" id="3_p6qlh"]
+[ext_resource type="Texture2D" uid="uid://bs3e05atwac6m" path="res://Assets/sprites/Bat/Png_animation/Bat2.png" id="4_c31lq"]
 [ext_resource type="Texture2D" uid="uid://dgscdk3s1vdj6" path="res://Assets/sprites/SHADOW Series - The Blind Huntress/Sprite Sheet/2 - Run.png" id="4_ivevv"]
 [ext_resource type="Texture2D" uid="uid://yibgixyth416" path="res://Assets/sprites/SHADOW Series - The Blind Huntress/Sprite Sheet/3 - jump.png" id="4_r6jsd"]
+[ext_resource type="Texture2D" uid="uid://p3vqj3j5bty7" path="res://Assets/sprites/Bat/Png_animation/Bat3.png" id="5_2dof7"]
+[ext_resource type="Texture2D" uid="uid://mwb0yyfhqmid" path="res://Assets/sprites/Bat/Png_animation/Bat4.png" id="6_4ao7i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2sw5t"]
 atlas = ExtResource("2_r6jsd")
@@ -26,6 +30,22 @@ region = Rect2(720, 0, 240, 128)
 [sub_resource type="AtlasTexture" id="AtlasTexture_2dof7"]
 atlas = ExtResource("2_r6jsd")
 region = Rect2(960, 0, 240, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_enslk"]
+atlas = ExtResource("3_c68nv")
+region = Rect2(0, 0, 44, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tmdkp"]
+atlas = ExtResource("4_c31lq")
+region = Rect2(0, 0, 44, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gklq8"]
+atlas = ExtResource("5_2dof7")
+region = Rect2(0, 0, 44, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nohji"]
+atlas = ExtResource("6_4ao7i")
+region = Rect2(0, 0, 44, 44)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4ao7i"]
 atlas = ExtResource("3_p6qlh")
@@ -187,6 +207,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_enslk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tmdkp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gklq8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nohji")
+}],
+"loop": true,
+"name": &"bat_dash",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_4ao7i")
 }, {
 "duration": 1.0,
@@ -324,8 +361,10 @@ script = ExtResource("1_y8w33")
 position = Vector2(0, -13)
 scale = Vector2(0.8, 0.8)
 sprite_frames = SubResource("SpriteFrames_r6jsd")
-animation = &"attack"
+animation = &"bat_dash"
 autoplay = "idle"
+frame = 2
+frame_progress = 0.26963264
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 5
@@ -333,6 +372,7 @@ position = Vector2(-1.5, -14.5)
 shape = SubResource("RectangleShape2D_kelma")
 
 [node name="AttackArea" type="Area2D" parent="."]
+visible = false
 monitoring = false
 
 [node name="sword_hitbox" type="CollisionShape2D" parent="AttackArea"]

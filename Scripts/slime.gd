@@ -4,6 +4,7 @@ class_name Enemy
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var player_hitbox: Area2D = $player_hitbox
+@onready var enviroment_hitbox: CollisionShape2D = $Enviroment_Hitbox
 
 
 var target: Player
@@ -16,6 +17,7 @@ func _ready():
 	player_hitbox.connect("body_entered", Callable(self, "_on_attack_area_body_entered"))
 
 func _physics_process(delta: float) -> void:
+	
 	# Add the gravity.
 	if not is_on_floor():	
 		

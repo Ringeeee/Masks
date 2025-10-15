@@ -8,32 +8,32 @@ var health := 100
 
 # --- Setup ---
 func _ready():
-    # Hier werden einmalig Dinge initialisiert
-    animated_sprite.play("idle")
+	# Hier werden einmalig Dinge initialisiert
+	animated_sprite.play("idle")
 
 # --- Physik-Logik ---
 func _physics_process(delta):
-    # Hier geht Bewegung, Schwerkraft, Kollisionen rein
-    handle_movement(delta)
+	# Hier geht Bewegung, Schwerkraft, Kollisionen rein
+	handle_movement(delta)
 
 # --- Normaler Logik-Loop ---
 func _process(delta):
-    # Hier geht Input, Animation, UI, Kamera usw. rein
-    handle_input()
+	# Hier geht Input, Animation, UI, Kamera usw. rein
+	handle_input()
 
 # --- Eigene Methoden ---
 func handle_input():
-    if Input.is_action_just_pressed("attack"):
-        do_attack()
+	if Input.is_action_just_pressed("attack"):
+		do_attack()
 
 func handle_movement(delta):
-    velocity.x = Input.get_axis("left", "right") * SPEED
-    move_and_slide()
+	velocity.x = Input.get_axis("left", "right") * SPEED
+	move_and_slide()
 
 func do_attack():
-    animated_sprite.play("attack")
+	animated_sprite.play("attack")
 
 # --- Signals ---
 func _on_attack_area_body_entered(body):
-    if body.is_in_group("Enemy"):
-        body.take_damage(20)
+	if body.is_in_group("Enemy"):
+		body.take_damage(20)

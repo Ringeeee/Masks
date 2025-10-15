@@ -165,7 +165,7 @@ position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_p18jv")
 animation = &"Idle"
 autoplay = "Idle"
-frame_progress = 0.9059462
+frame_progress = 0.14199886
 
 [node name="vision" type="Area2D" parent="."]
 

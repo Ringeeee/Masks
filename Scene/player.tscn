@@ -358,10 +358,10 @@ collision_layer = 2
 script = ExtResource("1_y8w33")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -13)
+position = Vector2(0, -12)
 scale = Vector2(0.8, 0.8)
 sprite_frames = SubResource("SpriteFrames_r6jsd")
-animation = &"bat_dash"
+animation = &"idle"
 autoplay = "idle"
 frame = 2
 frame_progress = 0.26963264

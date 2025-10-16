@@ -6,6 +6,8 @@ class_name Enemy
 @onready var enviroment_hitbox: CollisionShape2D = $Enviroment_Hitbox
 @onready var detection: CollisionShape2D = $vision/CollisionShape2D
 @onready var damage_timer: Timer = $damage_timer
+@onready var health_bar: ProgressBar = $HealthBar
+
 
 var target: Player
 var direction := 0
@@ -24,8 +26,10 @@ func _ready():
 	$vision.connect("body_entered", Callable(self, "_on_vision_body_entered"))
 	$vision.connect("body_exited", Callable(self, "_on_vision_body_exited"))
 	damage_timer.connect("timeout", Callable(self, "_on_damage_timer_timeout"))
+	health_bar.max_value = health
 
 func _physics_process(delta: float) -> void:
+	health_bar.value = health
 	if not is_alive:
 		if remove_object_timer < Time.get_ticks_msec():
 			queue_free()

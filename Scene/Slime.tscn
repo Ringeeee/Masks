@@ -252,7 +252,7 @@ script = ExtResource("1_24dpw")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_p18jv")
-animation = &"Walk"
+animation = &"Idle"
 autoplay = "Idle"
 
 [node name="vision" type="Area2D" parent="."]
@@ -279,3 +279,24 @@ rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_da4w4")
 
 [node name="damage_timer" type="Timer" parent="."]
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+modulate = Color(1, 0.26000598, 0.2008352, 1)
+offset_left = -15.0
+offset_top = -25.0
+offset_right = 16.0
+offset_bottom = -21.0
+max_value = 50.0
+value = 50.0
+show_percentage = false
+
+[node name="HealthBar2" type="ProgressBar" parent="."]
+modulate = Color(0, 0, 0, 1)
+show_behind_parent = true
+offset_left = -16.0
+offset_top = -26.0
+offset_right = 17.0
+offset_bottom = -20.0
+max_value = 50.0
+value = 50.0
+show_percentage = false

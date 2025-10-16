@@ -379,3 +379,26 @@ monitoring = false
 position = Vector2(17, -14)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_r6jsd")
+
+[node name="HealthBar2" type="ProgressBar" parent="."]
+modulate = Color(0, 0, 0, 1)
+offset_left = -16.0
+offset_top = 3.0
+offset_right = 16.0
+offset_bottom = 11.0
+value = 100.0
+show_percentage = false
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+modulate = Color(0.86343604, 5.318448e-06, 7.70092e-07, 1)
+offset_left = -15.0
+offset_top = 4.0
+offset_right = 15.0
+offset_bottom = 10.0
+value = 100.0
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

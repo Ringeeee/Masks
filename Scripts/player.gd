@@ -3,6 +3,9 @@ class_name Player
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_area: Area2D = $AttackArea
 @onready var sword_hitbox: CollisionShape2D = $AttackArea/sword_hitbox
+@onready var health_bar: ProgressBar = $HealthBar
+@onready var timer: Timer = $Timer
+
 
 
 const SPEED := 200.0
@@ -18,11 +21,13 @@ var cooldown := 0.0
 #Wird einmal am Anfang aufgerufen
 func _ready():
 	attack_area.connect("body_entered", Callable(self, "_on_attack_area_body_entered"))
+	health_bar.max_value = health
 
 #Läuft (normalerweise) 60x die Sekunde
 func _physics_process(delta: float) -> void:
+	health_bar.value = health
 	var direction := Input.get_axis("left", "right")
-	
+	if not is_alive : return
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -117,8 +122,14 @@ func take_damage(amount: int):
 		die()
 		
 func die():
+	timer.start()
+	Engine.time_scale = 0.5
 	if not is_alive : return
 	is_alive = false
 	animated_sprite.play("death")
 	cooldown += Time.get_ticks_msec() + 100000
 	print("you are dead")
+
+func _on_timer_timeout():
+	Engine.time_scale = 1.0
+	get_tree().reload_current_scene()

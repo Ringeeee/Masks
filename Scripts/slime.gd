@@ -60,7 +60,14 @@ func _on_attack_area_body_entered(body):
 	
 	player_in_hitbox = true
 	player_in_hitbox_body = body
+	
+	if body.has_method("take_damage"):
+		body.take_damage(25)
+	
+	
 	damage_timer.start()  # starte den Schadenstimer
+	
+	
 
 func _on_attack_area_body_exited(body):
 	if body == player_in_hitbox_body:

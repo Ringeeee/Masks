@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://h4w7k63p4mvd"]
+[gd_scene load_steps=13 format=3 uid="uid://h4w7k63p4mvd"]
 
 [ext_resource type="Texture2D" uid="uid://fijgmy2j17gf" path="res://Assets/Tiles/Assets.png" id="1_6o8n4"]
 [ext_resource type="Texture2D" uid="uid://bc70aoq4l36sl" path="res://Assets/Tiles/tileset.png" id="2_8d3su"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bkesp7fbupou" path="res://Scene/ghost.tscn" id="5_8d3su"]
 [ext_resource type="PackedScene" uid="uid://l4xcbcx6c80t" path="res://Scene/Slime.tscn" id="6_lqoaf"]
 [ext_resource type="PackedScene" uid="uid://csemtdmfvn27a" path="res://Scene/Fackel2.tscn" id="7_042xc"]
+[ext_resource type="PackedScene" uid="uid://cd8jqvw2v43ek" path="res://Scene/dash_mask.tscn" id="9_hif7b"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_phme4"]
 texture = ExtResource("1_6o8n4")
@@ -586,3 +587,6 @@ frame_progress = 0.0
 
 [node name="Node2D" parent="." instance=ExtResource("3_5c223")]
 position = Vector2(103, -11)
+
+[node name="sword" parent="." instance=ExtResource("9_hif7b")]
+position = Vector2(1226, -160)

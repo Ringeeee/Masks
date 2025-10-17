@@ -6,6 +6,9 @@ class_name Player
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var timer: Timer = $Timer
 @onready var active_mask_symbol: Sprite2D = $active_mask_symbol
+@onready var sword_sprite: Sprite2D = $sword_sprite
+@onready var dash_sprite: Sprite2D = $dash_sprite
+@onready var dash_heal: Sprite2D = $dash_heal
 
 
 
@@ -35,6 +38,7 @@ var dash_cooldown_timer := 0.0
 func _ready():
 	attack_area.connect("body_entered", Callable(self, "_on_attack_area_body_entered"))
 	health_bar.max_value = health
+	_hide_all()
 
 #Läuft (normalerweise) 60x die Sekunde
 func _physics_process(delta: float) -> void:
@@ -203,14 +207,22 @@ func _change_mask_symbol_to(mask):
 	match mask:
 		0:	#nothing
 			active_mask_symbol.modulate = Color(1.0, 1.0, 1.0, 1.0)
+			_hide_all()
 		1:	#sword
 			active_mask_symbol.modulate = Color(0.0, 0.0, 0.0, 1.0)
+			_hide_all()
+			sword_sprite.show()
 		2:	#dash
 			active_mask_symbol.modulate = Color(0.115, 0.237, 0.523, 1.0)
+			_hide_all()
+			dash_sprite.show
 		3:	#Healing
 			active_mask_symbol.modulate = Color(0.435, 1.0, 0.0, 1.0)
+			_hide_all()
+			dash_heal.show
 		_:	#defalt
 			active_mask_symbol.modulate = Color(1.0, 1.0, 1.0, 1.0)
+			_hide_all()
 
 func _heal_player():
 	health += 1
@@ -219,3 +231,7 @@ func take_mask():
 	if Input.is_action_just_pressed("pickup"):
 		max_masks += 1
 		
+func _hide_all():
+	sword_sprite.hide()
+	dash_sprite.hide()
+	dash_heal.hide()

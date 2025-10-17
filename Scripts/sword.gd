@@ -7,7 +7,6 @@ var player_inside := false
 var current_player: Player = null
 
 func _ready():
-	connect("body_entered", Callable(self, "_on_body_entered"))
 	connect("body_exited", Callable(self, "_on_body_exited"))
 
 func _on_body_entered(body):

@@ -12,6 +12,7 @@ class_name Player
 const SPEED := 200.0
 const JUMP_VELOCITY := -300.0
 
+var max_masks = 0
 @export var active_mask := 0 #0 = nothing, 1 = sword, 2 = healing = 3, 
 @export var health := 100	#to be changed 
 var cooldown_time := 0.4 # Sekunden
@@ -83,7 +84,7 @@ func _process(delta):
 	_basic_animation(direction)
 	
 	if Input.is_action_just_pressed("change_mask"):
-		_change_mask(3)
+		_change_mask()
 		_change_mask_symbol_to(active_mask)
 		
 		print(active_mask)
@@ -192,7 +193,7 @@ func _on_timer_timeout():
 	Engine.time_scale = 1.0
 	get_tree().reload_current_scene()
 
-func _change_mask(max_masks):
+func _change_mask():
 	if active_mask >= max_masks:
 		active_mask = 0
 		return
@@ -213,3 +214,8 @@ func _change_mask_symbol_to(mask):
 
 func _heal_player():
 	health += 1
+
+func take_mask():
+	if Input.is_action_just_pressed("pickup"):
+		max_masks += 1
+		

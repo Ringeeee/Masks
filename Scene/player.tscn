@@ -383,7 +383,7 @@ height = 62.0
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 process_mode = 3
-collision_layer = 2
+collision_layer = 3
 script = ExtResource("1_y8w33")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

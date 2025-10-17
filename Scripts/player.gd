@@ -209,7 +209,8 @@ func _change_mask_symbol_to(mask):
 			active_mask_symbol.modulate = Color(1.0, 1.0, 1.0, 1.0)
 			_hide_all()
 		1:	#sword
-			active_mask_symbol.modulate = Color(0.0, 0.0, 0.0, 1.0)
+			#active_mask_symbol.modulate = Color(0.0, 0.0, 0.0, 1.0)
+			active_mask_symbol.modulate = Color(0.0, 0.0, 0.0, 0)
 			_hide_all()
 			sword_sprite.show()
 		2:	#dash

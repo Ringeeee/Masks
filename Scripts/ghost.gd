@@ -3,6 +3,8 @@ extends Node2D
 
 @onready var player: Player = %Player
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var speak_bubble: Label = $SpeakBubble
+
 
 
 @export var target_path: NodePath
@@ -18,10 +20,16 @@ var target: Node2D
 var anim: AnimatedSprite2D
 var last_position: Vector2
 
+
 func _ready():
 	target = get_node_or_null(target_path)
 	anim = $AnimatedSprite2D
 	last_position = global_position
+	speak_bubble.text = "Hello, little prisoner. 
+	Do not be afraid. 
+	I am here to help you. 
+	But first things first. 
+	Please press Q and I will explain further."
 
 func _process(delta):
 	wobble_time += delta
@@ -46,6 +54,8 @@ func _process(delta):
 	
 	animated_sprite.rotation = sin(wobble_time * wobble_speed) * wobble_amount
 	
+	if Input.is_action_just_pressed("Dialog"):
+		speak_bubble.text = ("I will help you")
 func _basic_animation(direction):	
 
 

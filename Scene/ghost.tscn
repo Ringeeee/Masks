@@ -173,11 +173,6 @@ animations = [{
 "loop": true,
 "name": &"Move",
 "speed": 8.0
-}, {
-"frames": [],
-"loop": true,
-"name": &"new_animation",
-"speed": 5.0
 }]
 
 [node name="Ghost" type="Node2D"]
@@ -185,5 +180,11 @@ script = ExtResource("1_qn62s")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_b157h")
-animation = &"new_animation"
+animation = &"Idle"
 autoplay = "Idle"
+
+[node name="SpeakBubble" type="Label" parent="."]
+offset_left = 31.0
+offset_top = -114.0
+offset_right = 139.0
+offset_bottom = -31.0

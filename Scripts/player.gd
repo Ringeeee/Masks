@@ -17,6 +17,7 @@ var cooldown_time := 0.4 # Sekunden
 var last_action_time := -cooldown_time
 var is_alive := true
 var cooldown := 0.0
+var attack_direction := 1
 
 #Wird einmal am Anfang aufgerufen
 func _ready():
@@ -49,10 +50,13 @@ func _physics_process(delta: float) -> void:
 		#flip the sprite and Hitbox wenn noetig
 	if direction > 0:
 		sword_hitbox.position.x = 17
-		animated_sprite.flip_h = false	
+		animated_sprite.flip_h = false
 	elif direction < 0:
 		sword_hitbox.position.x = -17
 		animated_sprite.flip_h = true
+	
+	if not animated_sprite.is_playing() or animated_sprite.animation != "attack":
+		sword_hitbox.position.x = 17 if not animated_sprite.flip_h else -17
 	
 
 #Läuft FPS abhänig
@@ -84,8 +88,10 @@ func _do_dash():
 func _do_attack():
 	if cooldown > Time.get_ticks_msec():		
 		return #beendendet die Funktion frühzeitig 
+	attack_direction = 1 if not animated_sprite.flip_h else -1 #Richtung beim Start des Angriffs merken
 	animated_sprite.play("attack")
-	cooldown = Time.get_ticks_msec() + 400 #abhänig von der animations zeit		
+	cooldown = Time.get_ticks_msec() + 400 #abhänig von der animations zeit
+	sword_hitbox.position.x = 17 * attack_direction #Hitbox-Position *fixieren* basierend auf gemerkter Richtung
 	# Hitbox aktivieren
 	attack_area.monitoring = true	
 	# Deaktiviere sie nach kurzer Zeit (z. B. nach 0.2 Sekunden)

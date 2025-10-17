@@ -108,8 +108,8 @@ func take_damage(amount: int):
 func die():
 	is_alive = false
 	animated_sprite.position.y = -27
+	enviroment_hitbox.position.y = 20
 	animated_sprite.play("death")
 	cooldown += Time.get_ticks_msec() + 100000
-	remove_object_timer += Time.get_ticks_msec() + 1100
-	enviroment_hitbox.position.y = 15
+	remove_object_timer += Time.get_ticks_msec() + 1100	
 	print("slime is dead")

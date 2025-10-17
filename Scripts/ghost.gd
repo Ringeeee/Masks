@@ -10,6 +10,7 @@ extends Node2D
 @export var follow_smoothness: float = 4.0
 @export var follow_offset: Vector2 = Vector2(0, -50)
 
+var wobble_time := 0.0
 var target: Node2D
 var anim: AnimatedSprite2D
 var last_position: Vector2
@@ -20,7 +21,9 @@ func _ready():
 	last_position = global_position
 
 func _process(delta):
+	wobble_time += delta
 	var direction := Input.get_axis("left", "right")
+	var up_down := Input.get_axis("ui_up", "ui_down")
 	_basic_animation(direction)
 	
 	if direction > 0:
@@ -31,6 +34,13 @@ func _process(delta):
 		animated_sprite.flip_h = true
 		if position.x != 22 : 
 			position.x += 1
+			
+				# --- 🌀 Zufälliges Wobbeln ---
+	# 🌊 Sanftes Wobbeln (langsamer)
+	var wobble_speed := 2  # <--- kleiner = langsamer (z. B. 1.0 oder 0.5)
+	var wobble_amount := 0.15  # <--- wie stark es kippt (z. B. 0.02 für weniger)
+	
+	animated_sprite.rotation = sin(wobble_time * wobble_speed) * wobble_amount
 	
 func _basic_animation(direction):	
 

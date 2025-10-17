@@ -5,19 +5,29 @@ class_name Player
 @onready var sword_hitbox: CollisionShape2D = $AttackArea/sword_hitbox
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var timer: Timer = $Timer
+@onready var active_mask_symbol: Sprite2D = $active_mask_symbol
 
 
 
 const SPEED := 200.0
 const JUMP_VELOCITY := -300.0
-const active_mask := 1 #0 = nothing, 1 = sword, 2 = ? 
 
-var health := 100	#to be changed 
+@export var active_mask := 0 #0 = nothing, 1 = sword, 2 = ? 
+@export var health := 100	#to be changed 
 var cooldown_time := 0.4 # Sekunden
 var last_action_time := -cooldown_time
 var is_alive := true
 var cooldown := 0.0
 var attack_direction := 1
+
+# --- Dash Variablen ---
+var dash_speed := 600.0
+var dash_time := 0.2          # wie lange der Dash dauert (Sekunden)
+var dash_cooldown := 1.0       # Pause bis zum nächsten Dash
+var is_dashing := false
+var dash_timer := 0.0
+var dash_cooldown_timer := 0.0
+
 
 #Wird einmal am Anfang aufgerufen
 func _ready():
@@ -28,41 +38,53 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	health_bar.value = health
 	var direction := Input.get_axis("left", "right")
-	if not is_alive : return
-	# Add the gravity.
+	if not is_alive:
+		return
+
+	# Dash-Cooldown aktualisieren
+	if dash_cooldown_timer > 0:
+		dash_cooldown_timer -= delta
+
+	# --- DASH aktiv ---
+	if is_dashing:
+		dash_timer -= delta
+		velocity.x = attack_direction * dash_speed
+		velocity.y = 0  # optional: kein Einfluss von Schwerkraft während Dash
+		move_and_slide()
+
+		if dash_timer <= 0:
+			is_dashing = false
+			dash_cooldown_timer = dash_cooldown
+		return  # ← Dieses return nur INNERHALB des Dash-Blocks!
+	# --- ENDE DASH ---
+
+	# --- normale Steuerung ---
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	
 	if direction:
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
-	move_and_slide() #idk was das macht 
-	
-		#flip the sprite and Hitbox wenn noetig
-	if direction > 0:
-		sword_hitbox.position.x = 17
-		animated_sprite.flip_h = false
-	elif direction < 0:
-		sword_hitbox.position.x = -17
-		animated_sprite.flip_h = true
-	
-	if not animated_sprite.is_playing() or animated_sprite.animation != "attack":
-		sword_hitbox.position.x = 17 if not animated_sprite.flip_h else -17
-	
+	move_and_slide()
+
+	_handle_direction(direction)
 
 #Läuft FPS abhänig
 func _process(delta):
 	var direction := Input.get_axis("left", "right")
 	_basic_animation(direction)
+	
+	if Input.is_action_just_pressed("change_mask"):
+		_change_mask()
+		_change_mask_symbol_to(active_mask)
+		
+		print(active_mask)
+	
 
 	if Input.is_action_just_pressed("attack"):
 		var current_time = Time.get_ticks_msec() / 1000.0
@@ -81,16 +103,35 @@ func _process(delta):
 		print("pickup")
 
 #Selbst eingebaute Functionen
+func _handle_direction(direction):
+	if direction > 0 and animated_sprite.animation != "attack":
+		sword_hitbox.position.x = 17
+		animated_sprite.flip_h = false
+	elif direction < 0 and animated_sprite.animation != "attack":
+		sword_hitbox.position.x = -17
+		animated_sprite.flip_h = true
+	
+	if not animated_sprite.is_playing() or animated_sprite.animation != "attack":
+		sword_hitbox.position.x = 17 if not animated_sprite.flip_h else -17
 
 func _do_dash():
-	print("_do_dash")
+	if is_dashing or dash_cooldown_timer > 0:
+		return
+	
+	print("Dash!")
+	is_dashing = true
+	dash_timer = dash_time
+	attack_direction = 1 if not animated_sprite.flip_h else -1
+
+	animated_sprite.play("bat_dash")
+	cooldown = Time.get_ticks_msec() + 300
 
 func _do_attack():
 	if cooldown > Time.get_ticks_msec():		
 		return #beendendet die Funktion frühzeitig 
 	attack_direction = 1 if not animated_sprite.flip_h else -1 #Richtung beim Start des Angriffs merken
-	animated_sprite.play("attack")
-	cooldown = Time.get_ticks_msec() + 400 #abhänig von der animations zeit
+	animated_sprite.play("alt_attack")	
+	cooldown = Time.get_ticks_msec() + 200 #abhänig von der animations zeit
 	sword_hitbox.position.x = 17 * attack_direction #Hitbox-Position *fixieren* basierend auf gemerkter Richtung
 	# Hitbox aktivieren
 	attack_area.monitoring = true	
@@ -119,7 +160,6 @@ func _basic_animation(direction):
 	else:
 		animated_sprite.play("jump")	
 
-
 func take_damage(amount: int):
 	if not is_alive : return
 	health -= amount
@@ -139,3 +179,20 @@ func die():
 func _on_timer_timeout():
 	Engine.time_scale = 1.0
 	get_tree().reload_current_scene()
+
+func _change_mask():
+	if active_mask >= 2:
+		active_mask = 0
+		return
+	active_mask += 1
+
+func _change_mask_symbol_to(mask):
+	match mask:
+		0:	#nothing
+			active_mask_symbol.modulate = Color(1.0, 1.0, 1.0, 1.0)
+		1:	#sword
+			active_mask_symbol.modulate = Color(0.0, 0.0, 0.0, 1.0)
+		2:	#dash
+			active_mask_symbol.modulate = Color(0.115, 0.237, 0.523, 1.0)
+		_:	#defalt
+			active_mask_symbol.modulate = Color(1.0, 1.0, 1.0, 1.0)

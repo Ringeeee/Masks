@@ -10,6 +10,9 @@ extends Node2D
 @export var follow_smoothness: float = 4.0
 @export var follow_offset: Vector2 = Vector2(0, -50)
 
+
+var velocity := Vector2.ZERO
+
 var wobble_time := 0.0
 var target: Node2D
 var anim: AnimatedSprite2D
@@ -34,6 +37,7 @@ func _process(delta):
 		animated_sprite.flip_h = true
 		if position.x != 22 : 
 			position.x += 1
+
 			
 				# --- 🌀 Zufälliges Wobbeln ---
 	# 🌊 Sanftes Wobbeln (langsamer)

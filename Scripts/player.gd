@@ -12,13 +12,14 @@ class_name Player
 const SPEED := 200.0
 const JUMP_VELOCITY := -300.0
 
-@export var active_mask := 0 #0 = nothing, 1 = sword, 2 = ? 
+@export var active_mask := 0 #0 = nothing, 1 = sword, 2 = healing = 3, 
 @export var health := 100	#to be changed 
 var cooldown_time := 0.4 # Sekunden
 var last_action_time := -cooldown_time
 var is_alive := true
 var cooldown := 0.0
 var attack_direction := 1
+var heal_player = false
 
 # --- Dash Variablen ---
 var dash_speed := 600.0
@@ -40,7 +41,9 @@ func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("left", "right")
 	if not is_alive:
 		return
-
+	
+	if heal_player:
+		_heal_player()
 	# Dash-Cooldown aktualisieren
 	if dash_cooldown_timer > 0:
 		dash_cooldown_timer -= delta
@@ -80,23 +83,32 @@ func _process(delta):
 	_basic_animation(direction)
 	
 	if Input.is_action_just_pressed("change_mask"):
-		_change_mask()
+		_change_mask(3)
 		_change_mask_symbol_to(active_mask)
 		
 		print(active_mask)
-	
+		
+	if active_mask == 3:
+		heal_player = true
+	else:
+		heal_player = false
 
 	if Input.is_action_just_pressed("attack"):
 		var current_time = Time.get_ticks_msec() / 1000.0
 		if current_time - last_action_time >= cooldown_time:
 			if active_mask == 0:
 				print("nothing")
+				heal_player = false
 			elif active_mask == 1:
 				print("sword")
+				heal_player = false
 				_do_attack()
 			elif active_mask == 2:
 				print("dash")
+				heal_player = false
 				_do_dash()
+			elif active_mask == 3:
+				print("healing")
 			last_action_time = current_time
 	
 	if Input.is_action_just_pressed("pickup"):
@@ -180,8 +192,8 @@ func _on_timer_timeout():
 	Engine.time_scale = 1.0
 	get_tree().reload_current_scene()
 
-func _change_mask():
-	if active_mask >= 2:
+func _change_mask(max_masks):
+	if active_mask >= max_masks:
 		active_mask = 0
 		return
 	active_mask += 1
@@ -194,5 +206,10 @@ func _change_mask_symbol_to(mask):
 			active_mask_symbol.modulate = Color(0.0, 0.0, 0.0, 1.0)
 		2:	#dash
 			active_mask_symbol.modulate = Color(0.115, 0.237, 0.523, 1.0)
+		3:	#Healing
+			active_mask_symbol.modulate = Color(0.435, 1.0, 0.0, 1.0)
 		_:	#defalt
 			active_mask_symbol.modulate = Color(1.0, 1.0, 1.0, 1.0)
+
+func _heal_player():
+	health += 1

@@ -373,7 +373,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kelma"]
-size = Vector2(9, 29)
+size = Vector2(9, 30)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r6jsd"]
 radius = 5.0
@@ -390,12 +390,12 @@ script = ExtResource("1_y8w33")
 position = Vector2(0, -12)
 scale = Vector2(0.8, 0.8)
 sprite_frames = SubResource("SpriteFrames_r6jsd")
-animation = &"alt_attack"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 5
-position = Vector2(-1.5, -14.5)
+position = Vector2(-1.5, -15)
 shape = SubResource("RectangleShape2D_kelma")
 
 [node name="AttackArea" type="Area2D" parent="."]

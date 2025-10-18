@@ -34,7 +34,6 @@ func _ready():
 func _process(delta):
 	wobble_time += delta
 	var direction := Input.get_axis("left", "right")
-	var up_down := Input.get_axis("ui_up", "ui_down")
 	_basic_animation(direction)
 	
 	if direction > 0:

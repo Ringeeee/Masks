@@ -184,6 +184,7 @@ animation = &"Idle"
 autoplay = "Idle"
 
 [node name="SpeakBubble" type="Label" parent="."]
+visible = false
 offset_left = 31.0
 offset_top = -114.0
 offset_right = 139.0

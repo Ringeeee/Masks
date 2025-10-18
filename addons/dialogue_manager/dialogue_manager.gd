@@ -409,18 +409,10 @@ func create_resource_from_text(text: String) -> Resource:
 			}))
 		assert(false, DMConstants.translate(&"runtime.errors_see_details").format({ count = result.errors.size() }))
 
-	var resource: DialogueResource = DialogueResource.new()
-	resource.using_states = result.using_states
-	resource.titles = result.titles
-	resource.first_title = result.first_title
-	resource.character_names = result.character_names
-	resource.lines = result.lines
-	resource.raw_text = text
-
-	return resource
 
 
-#region Balloon helpers
+
+
 
 
 ## Show the example balloon

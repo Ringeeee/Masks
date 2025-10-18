@@ -1,5 +1,4 @@
 extends CharacterBody2D
-class_name Enemy
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var player_hitbox: Area2D = $player_hitbox

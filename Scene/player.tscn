@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://chy0jw0qguwfi"]
+[gd_scene load_steps=63 format=3 uid="uid://chy0jw0qguwfi"]
 
 [ext_resource type="Script" uid="uid://b6r486k7lkur4" path="res://Scripts/player.gd" id="1_y8w33"]
 [ext_resource type="Texture2D" uid="uid://cyaj1dcel67h" path="res://Assets/sprites/SHADOW Series - The Blind Huntress/Sprite Sheet/1 - Idle.png" id="2_58ae2"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://yibgixyth416" path="res://Assets/sprites/SHADOW Series - The Blind Huntress/Sprite Sheet/3 - jump.png" id="4_r6jsd"]
 [ext_resource type="Texture2D" uid="uid://p3vqj3j5bty7" path="res://Assets/sprites/Bat/Png_animation/Bat3.png" id="5_2dof7"]
 [ext_resource type="Texture2D" uid="uid://mwb0yyfhqmid" path="res://Assets/sprites/Bat/Png_animation/Bat4.png" id="6_4ao7i"]
+[ext_resource type="Texture2D" uid="uid://d2ipg6gwftx2o" path="res://Assets/sprites/sword_big.png" id="12_2dof7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xmvmh"]
 atlas = ExtResource("2_c31lq")
@@ -383,7 +384,7 @@ height = 62.0
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 process_mode = 3
-collision_layer = 2
+collision_layer = 3
 script = ExtResource("1_y8w33")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -428,9 +429,18 @@ show_percentage = false
 one_shot = true
 
 [node name="active_mask_symbol" type="Sprite2D" parent="."]
-modulate = Color(0.84313726, 0.13725491, 0.5058824, 1)
-position = Vector2(-165.62502, -98)
-scale = Vector2(45.250004, 30)
+modulate = Color(0.99920946, 0.9817514, 0.9873107, 1)
+position = Vector2(-163, -98)
+scale = Vector2(50.00001, 30)
 texture = SubResource("CanvasTexture_c31lq")
+
+[node name="sword_sprite" type="Sprite2D" parent="."]
+position = Vector2(-163, -98)
+scale = Vector2(0.099999994, 0.1)
+texture = ExtResource("12_2dof7")
+
+[node name="dash_sprite" type="Sprite2D" parent="."]
+
+[node name="dash_heal" type="Sprite2D" parent="."]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

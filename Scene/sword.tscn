@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://ccknft2118rku"]
+
+[ext_resource type="Texture2D" uid="uid://cyto7ke37gfby" path="res://Assets/sprites/sword.png" id="1_b5r8n"]
+[ext_resource type="Script" uid="uid://dgrgagb3bqkj7" path="res://Scripts/sword.gd" id="1_br70n"]
+[ext_resource type="FontFile" uid="uid://cfvht4q8s0jj" path="res://Assets/fonts/PixelOperator8.ttf" id="3_q7csm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_br70n"]
+radius = 17.0
+
+[node name="sword" type="Area2D"]
+collision_mask = 3
+script = ExtResource("1_br70n")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_b5r8n")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_br70n")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -26.0
+offset_top = -30.0
+offset_right = 25.0
+offset_bottom = -22.0
+theme_override_fonts/font = ExtResource("3_q7csm")
+theme_override_font_sizes/font_size = 8
+text = "Press: E"
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(0, 5)
+amount = 20
+lifetime = 0.09999999999999999
+speed_scale = 0.45
+emission_shape = 3
+emission_rect_extents = Vector2(1, 1)
+direction = Vector2(5.56, 10.77)
+spread = 132.22
+gravity = Vector2(0, -200)
+initial_velocity_max = 268.04
+angular_velocity_min = -326.6
+angular_velocity_max = 267.22
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -27,6 +27,7 @@ enabled=PackedStringArray("res://addons/BubbleDialogue/plugin.cfg", "res://addon
 
 Enemy=""
 Player=""
+objekt=""
 
 [input]
 

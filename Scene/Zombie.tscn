@@ -256,11 +256,11 @@ position = Vector2(0, -64)
 sprite_frames = SubResource("SpriteFrames_chikf")
 animation = &"Attack"
 autoplay = "Idle"
-frame_progress = 0.532879
+frame_progress = 0.62200576
 
 [node name="Vision" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
+[node name="Detection" type="CollisionShape2D" parent="Vision"]
 position = Vector2(205, -34)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_bc7yh")

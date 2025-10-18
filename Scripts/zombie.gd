@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name Enemy
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var vision: Area2D = $Vision
+@onready var detection: CollisionShape2D = $Vision/CollisionShape2D
 @onready var damage_hitbox: Area2D = $DamageHitbox
 @onready var hitbox: CollisionShape2D = $Hitbox
 @onready var vision_right: RayCast2D = $VisionRight
@@ -24,19 +24,25 @@ const SPEED = 50
 
 
 
-func _process(delta):
-	animated_sprite.play("Walk")
-	if player_in_range and target:
-		_move_towards_player(delta)
+
+#func _process(delta):
+	#animated_sprite.play("Walk")
+	#if player_in_range and target:
+		#_move_towards_player(delta)
 	
 
-	if vision_right.is_colliding():
-		direction = -1
-		animated_sprite.flip_h = true
-	if vision_left.is_colliding():
-		direction = 1
-		animated_sprite.flip_h = false
-	position.x += direction * SPEED * delta
+	#if vision_right.is_colliding():
+		#direction = -1
+		#animated_sprite.flip_h = true
+	#if vision_left.is_colliding():
+		#direction = 1
+		#animated_sprite.flip_h = false
+	
+
+func _ready():
+	hitbox.connect("body_entered", Callable(self, "_on_attack_area_body_entered"))
+	hitbox.connect("body_exited", Callable(self, "_on_attack_area_body_exited"))
+	damage_timer.connect("timeout", Callable(self, "_on_damage_timer_timeout"))
 
 func _physics_process(delta: float) -> void:
 
@@ -49,6 +55,9 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 	if player_in_range and target:
 		_move_towards_player(delta)
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED * delta)
+		animated_sprite.play("Idle")
 	
 	move_and_slide()
 
@@ -97,3 +106,9 @@ func die():
 	cooldown += Time.get_ticks_msec() + 100000
 	remove_object_timer += Time.get_ticks_msec() + 1100	
 	print("zombie is dead")
+
+func _on_attack_area_body_exited(body):
+	if body == player_in_hitbox_body:
+		player_in_hitbox = false
+		player_in_hitbox_body = null
+		damage_timer.stop()

@@ -25,6 +25,7 @@ offset_bottom = -22.0
 theme_override_fonts/font = ExtResource("3_q7csm")
 theme_override_font_sizes/font_size = 8
 text = "Press: E"
+metadata/_edit_use_anchors_ = true
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 amount = 20

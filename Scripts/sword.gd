@@ -28,7 +28,7 @@ func _process(delta):
 			
 	if player_inside and Input.is_action_just_pressed("pickup"):  # z. B. Taste E
 		_pickup()
-
+		
 func _pickup():
 	if current_player and current_player.has_method("take_mask"):
 		current_player.take_mask()  # Player-Methode aufrufen

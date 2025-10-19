@@ -11,7 +11,12 @@ extends CharacterBody2D
 @onready var active_mask_symbol: Sprite2D = $active_mask_symbol
 @onready var sword_sprite: Sprite2D = $sword_sprite
 @onready var dash_sprite: Sprite2D = $dash_sprite
-@onready var dash_heal: Sprite2D = $dash_heal
+@onready var heal_sprite: Sprite2D = $heal_sprite
+
+
+
+
+
 
 
 
@@ -20,7 +25,7 @@ const JUMP_VELOCITY := -300.0
 
 var max_masks = 0
 @export var active_mask := 0 #0 = nothing, 1 = sword, 2 = healing = 3, 
-@export var health := 100	#to be changed 
+@export var health := 100.0	#to be changed 
 var cooldown_time := 0.4 # Sekunden
 var last_action_time := -cooldown_time
 var is_alive := true
@@ -35,6 +40,7 @@ var dash_cooldown := 1.0       # Pause bis zum nächsten Dash
 var is_dashing := false
 var dash_timer := 0.0
 var dash_cooldown_timer := 0.0
+var heal_cooldown := 0.0
 
 
 #Wird einmal am Anfang aufgerufen
@@ -96,7 +102,7 @@ func _process(delta):
 		
 		print(active_mask)
 		
-	if active_mask == 3:
+	if active_mask == 2:
 		heal_player = true
 	else:
 		heal_player = false
@@ -112,11 +118,11 @@ func _process(delta):
 				heal_player = false
 				_do_attack()
 			elif active_mask == 2:
+				print("healing")
+			elif active_mask == 3:
 				print("dash")
 				heal_player = false
 				_do_dash()
-			elif active_mask == 3:
-				print("healing")
 			last_action_time = current_time
 	
 	if Input.is_action_just_pressed("pickup"):
@@ -209,27 +215,33 @@ func _change_mask():
 func _change_mask_symbol_to(mask):
 	match mask:
 		0:	#nothing
-			active_mask_symbol.modulate = Color(1.0, 1.0, 1.0, 1.0)
+			active_mask_symbol.modulate = Color(1.0, 1.0, 1.0, 0.0)
 			_hide_all()
 		1:	#sword
 			#active_mask_symbol.modulate = Color(0.0, 0.0, 0.0, 1.0)
 			active_mask_symbol.modulate = Color(0.0, 0.0, 0.0, 0)
 			_hide_all()
 			sword_sprite.show()
-		2:	#dash
-			active_mask_symbol.modulate = Color(0.115, 0.237, 0.523, 1.0)
+		2:	#Healing
 			_hide_all()
-			dash_sprite.show
-		3:	#Healing
-			active_mask_symbol.modulate = Color(0.435, 1.0, 0.0, 1.0)
+			active_mask_symbol.modulate = Color(0.306, 0.725, 0.0, 0.0)
+			heal_sprite.show()
+		3:	#dash
+			active_mask_symbol.modulate = Color(0.0, 0.0, 0.0, 0.0)
 			_hide_all()
-			dash_heal.show
+			dash_sprite.show()
+
+
+
 		_:	#defalt
 			active_mask_symbol.modulate = Color(1.0, 1.0, 1.0, 1.0)
 			_hide_all()
 
 func _heal_player():
-	health += 1
+	if health >= 100: return
+	if heal_cooldown >= Time.get_ticks_msec(): return
+	health += 5
+	heal_cooldown = Time.get_ticks_msec() + 1000
 
 func take_mask():
 	if Input.is_action_just_pressed("pickup"):
@@ -238,4 +250,8 @@ func take_mask():
 func _hide_all():
 	sword_sprite.hide()
 	dash_sprite.hide()
-	dash_heal.hide()
+	heal_sprite.hide()
+
+
+func _on_finish_zone_body_entered(body: Node2D) -> void:
+	pass # Replace with function body.

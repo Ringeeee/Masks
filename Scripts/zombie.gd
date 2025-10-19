@@ -13,6 +13,8 @@ extends CharacterBody2D
 @onready var hitbox: CollisionShape2D = $Hitbox
 @onready var bite_timer: Timer = $bite_timer
 @onready var ray_cast_bite_player: RayCast2D = $RayCast_bite_player
+@onready var health_bar: ProgressBar = $HealthBar
+
 
 #Zum start werden Variablen [var], Constanten [const], und ? betimmt
 #diese können von überall im code angesprochen werden und verwendet werden. 
@@ -62,9 +64,10 @@ func _ready() -> void:
 	# der Grund warum bei dir Vision nicht ging, ist ein wenig Komplex aber im grunde ist es auf eine schlechte Struktur in unserem Projekt zurück zu führen 
 	$vision.connect("body_entered", Callable(self, "_on_vision_body_entered"))
 	$vision.connect("body_exited", Callable(self, "_on_vision_body_exited"))
-	
+	health_bar.max_value = health
 # wird normalerweies 60mal pro sekunde aufgerufen, meist für Physik und Movement verwendet. 
 func _physics_process(delta: float) -> void:
+	health_bar.value = health
 	if not is_alive:	# Ein einfacher weg zu verhindern das nach dem Tot noch weitere sachen im code passieren 
 		return
 

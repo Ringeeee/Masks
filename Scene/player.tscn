@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://chy0jw0qguwfi"]
+[gd_scene load_steps=64 format=3 uid="uid://chy0jw0qguwfi"]
 
 [ext_resource type="Script" uid="uid://b6r486k7lkur4" path="res://Scripts/player.gd" id="1_y8w33"]
 [ext_resource type="Texture2D" uid="uid://cyaj1dcel67h" path="res://Assets/sprites/SHADOW Series - The Blind Huntress/Sprite Sheet/1 - Idle.png" id="2_58ae2"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://p3vqj3j5bty7" path="res://Assets/sprites/Bat/Png_animation/Bat3.png" id="5_2dof7"]
 [ext_resource type="Texture2D" uid="uid://mwb0yyfhqmid" path="res://Assets/sprites/Bat/Png_animation/Bat4.png" id="6_4ao7i"]
 [ext_resource type="Texture2D" uid="uid://d2ipg6gwftx2o" path="res://Assets/sprites/sword_big.png" id="12_2dof7"]
+[ext_resource type="Texture2D" uid="uid://ctwqc765jorsj" path="res://Assets/sprites/dash_mask.png" id="13_4ao7i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xmvmh"]
 atlas = ExtResource("2_c31lq")
@@ -430,6 +431,7 @@ show_percentage = false
 one_shot = true
 
 [node name="active_mask_symbol" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(0.99920946, 0.9817514, 0.9873107, 1)
 position = Vector2(-163, -98)
 scale = Vector2(50.00001, 30)
@@ -441,7 +443,13 @@ scale = Vector2(0.099999994, 0.1)
 texture = ExtResource("12_2dof7")
 
 [node name="dash_sprite" type="Sprite2D" parent="."]
+position = Vector2(-163, -98)
+scale = Vector2(1.125, 1.1250004)
+texture = ExtResource("13_4ao7i")
 
-[node name="dash_heal" type="Sprite2D" parent="."]
+[node name="heal_sprite" type="Sprite2D" parent="."]
+self_modulate = Color(0.5136595, 0.99268144, 0.5133737, 1)
+position = Vector2(-163, -98)
+texture = ExtResource("13_4ao7i")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

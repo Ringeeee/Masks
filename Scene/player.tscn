@@ -374,17 +374,18 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kelma"]
-size = Vector2(9, 30)
+size = Vector2(9, 36)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r6jsd"]
 radius = 5.0
-height = 62.0
+height = 64.0
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_c31lq"]
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 process_mode = 3
-collision_layer = 3
+collision_layer = 6
+collision_mask = 7
 script = ExtResource("1_y8w33")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -396,7 +397,7 @@ autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 5
-position = Vector2(-1.5, -15)
+position = Vector2(-1.5, -18)
 shape = SubResource("RectangleShape2D_kelma")
 
 [node name="AttackArea" type="Area2D" parent="."]

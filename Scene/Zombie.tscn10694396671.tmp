@@ -242,7 +242,7 @@ animations = [{
 size = Vector2(18, 63)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mx7d2"]
-size = Vector2(179.125, 50.25)
+size = Vector2(179.125, 106.25)
 
 [node name="Zombie" type="CharacterBody2D" groups=["Enemy"]]
 script = ExtResource("1_mx7d2")
@@ -250,9 +250,8 @@ script = ExtResource("1_mx7d2")
 [node name="Animation" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -64)
 sprite_frames = SubResource("SpriteFrames_chikf")
-animation = &"Walk"
+animation = &"Idle"
 autoplay = "Idle"
-frame_progress = 0.48192984
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -32)
@@ -272,15 +271,8 @@ collision_layer = 4
 collision_mask = 2
 
 [node name="vision_hitbox" type="CollisionShape2D" parent="vision"]
-position = Vector2(100, -36.875)
+position = Vector2(100, -64.875)
 shape = SubResource("RectangleShape2D_mx7d2")
-
-[node name="bite_timer" type="Timer" parent="."]
-
-[node name="RayCast_bite_player" type="RayCast2D" parent="."]
-position = Vector2(0, -44)
-target_position = Vector2(20, 0)
-collision_mask = 6
 
 [connection signal="body_entered" from="vision" to="." method="_on_vision_body_entered"]
 [connection signal="body_exited" from="vision" to="." method="_on_vision_body_exited"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://2cp8vnhji2ls"]
+[gd_scene load_steps=41 format=3 uid="uid://2cp8vnhji2ls"]
 
 [ext_resource type="Script" uid="uid://buvw2ewv8bhgq" path="res://Scripts/zombie.gd" id="1_mx7d2"]
 [ext_resource type="Texture2D" uid="uid://dybr5n2iuh23w" path="res://Assets/sprites/Zombie_3/Attack.png" id="1_rls0v"]
@@ -242,7 +242,11 @@ animations = [{
 size = Vector2(18, 63)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mx7d2"]
-size = Vector2(179.125, 50.25)
+size = Vector2(179.125, 106.25)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mx7d2"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_mx7d2"]
 
 [node name="Zombie" type="CharacterBody2D" groups=["Enemy"]]
 script = ExtResource("1_mx7d2")
@@ -252,7 +256,7 @@ position = Vector2(0, -64)
 sprite_frames = SubResource("SpriteFrames_chikf")
 animation = &"Walk"
 autoplay = "Idle"
-frame_progress = 0.48192984
+frame_progress = 0.081834875
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -32)
@@ -272,15 +276,25 @@ collision_layer = 4
 collision_mask = 2
 
 [node name="vision_hitbox" type="CollisionShape2D" parent="vision"]
-position = Vector2(100, -36.875)
+position = Vector2(100, -64.875)
 shape = SubResource("RectangleShape2D_mx7d2")
+
+[node name="bite_area" type="Area2D" parent="."]
+collision_layer = 7
+collision_mask = 7
+
+[node name="bite_hitbox" type="CollisionShape2D" parent="bite_area"]
+position = Vector2(13, -51)
+shape = SubResource("CircleShape2D_mx7d2")
+
+[node name="Sprite2D" type="Sprite2D" parent="bite_area/bite_hitbox"]
+position = Vector2(1.1920929e-07, 4.4703484e-07)
+scale = Vector2(16.000002, 14.999999)
+texture = SubResource("PlaceholderTexture2D_mx7d2")
 
 [node name="bite_timer" type="Timer" parent="."]
 
-[node name="RayCast_bite_player" type="RayCast2D" parent="."]
-position = Vector2(0, -44)
-target_position = Vector2(20, 0)
-collision_mask = 6
-
 [connection signal="body_entered" from="vision" to="." method="_on_vision_body_entered"]
 [connection signal="body_exited" from="vision" to="." method="_on_vision_body_exited"]
+[connection signal="area_entered" from="bite_area" to="." method="_on_bite_area_area_entered"]
+[connection signal="area_exited" from="bite_area" to="." method="_on_bite_area_area_exited"]

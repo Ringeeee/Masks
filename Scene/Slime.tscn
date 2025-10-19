@@ -247,6 +247,8 @@ points = PackedVector2Array(-10, 0, -4, -15, 4, -15, 10, 0)
 height = 40.0
 
 [node name="CharacterBody2D" type="CharacterBody2D" groups=["Enemy"]]
+collision_layer = 7
+collision_mask = 7
 script = ExtResource("1_24dpw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -256,12 +258,16 @@ animation = &"Idle"
 autoplay = "Idle"
 
 [node name="vision" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="vision"]
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_annkd")
 
 [node name="damage_hitbox" type="Area2D" parent="."]
+collision_layer = 6
+collision_mask = 6
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="damage_hitbox"]
 position = Vector2(0, -7)
@@ -269,9 +275,12 @@ rotation = -1.5550884
 shape = SubResource("CapsuleShape2D_p18jv")
 
 [node name="Enviroment_Hitbox" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("ConvexPolygonShape2D_annkd")
 
 [node name="player_hitbox" type="Area2D" parent="."]
+collision_layer = 7
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_hitbox"]
 position = Vector2(0, -8)

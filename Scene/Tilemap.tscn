@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://h4w7k63p4mvd"]
+[gd_scene load_steps=19 format=3 uid="uid://h4w7k63p4mvd"]
 
 [ext_resource type="Texture2D" uid="uid://fijgmy2j17gf" path="res://Assets/Tiles/Assets.png" id="1_6o8n4"]
 [ext_resource type="Texture2D" uid="uid://bc70aoq4l36sl" path="res://Assets/Tiles/tileset.png" id="2_8d3su"]
@@ -8,10 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://l4xcbcx6c80t" path="res://Scene/Slime.tscn" id="6_lqoaf"]
 [ext_resource type="PackedScene" uid="uid://cd8jqvw2v43ek" path="res://Scene/dash_mask.tscn" id="9_hif7b"]
 [ext_resource type="PackedScene" uid="uid://2cp8vnhji2ls" path="res://Scene/Zombie.tscn" id="10_sblq4"]
-[ext_resource type="PackedScene" uid="uid://csv0f7q1aabyl" path="res://Scene/finish_zone.tscn" id="11_fhxl0"]
-[ext_resource type="PackedScene" uid="uid://dwe17h4byfcvg" path="res://Scene/death_zone.tscn" id="11_hp8ae"]
-[ext_resource type="PackedScene" uid="uid://dhixeg0cxvgk5" path="res://Scene/heal_mask.tscn" id="12_fhxl0"]
-[ext_resource type="Script" uid="uid://dvwwek3ifefb" path="res://Scene/finish_zone.gd" id="12_wab47"]
+[ext_resource type="PackedScene" path="res://Scene/finish_zone.tscn" id="11_fhxl0"]
+[ext_resource type="PackedScene" path="res://Scene/death_zone.tscn" id="11_hp8ae"]
+[ext_resource type="PackedScene" path="res://Scene/heal_mask.tscn" id="12_fhxl0"]
+[ext_resource type="Script" path="res://Scene/finish_zone.gd" id="12_wab47"]
 [ext_resource type="FontFile" uid="uid://cfvht4q8s0jj" path="res://Assets/fonts/PixelOperator8.ttf" id="13_wab47"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_phme4"]
@@ -541,10 +541,7 @@ sources/1 = SubResource("TileSetAtlasSource_op66y")
 sources/2 = SubResource("TileSetAtlasSource_sblq4")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hp8ae"]
-size = Vector2(754, 5.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mfhtj"]
-size = Vector2(370, 243.5)
+size = Vector2(754, 9.75)
 
 [node name="Game" type="Node2D"]
 
@@ -610,9 +607,6 @@ position = Vector2(-2551, -524)
 [node name="CharacterBody2D2" parent="Creatures" instance=ExtResource("6_lqoaf")]
 position = Vector2(-1846, -334)
 
-[node name="CharacterBody2D3" parent="Creatures" instance=ExtResource("6_lqoaf")]
-position = Vector2(-1480, -335)
-
 [node name="CharacterBody2D4" parent="Creatures" instance=ExtResource("6_lqoaf")]
 position = Vector2(-940, -336)
 
@@ -655,7 +649,7 @@ position = Vector2(-305, -351)
 position = Vector2(-1742, -93)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="DeathZone"]
-position = Vector2(410, -190)
+position = Vector2(404, -188)
 shape = SubResource("RectangleShape2D_hp8ae")
 
 [node name="heal_mask" parent="." instance=ExtResource("12_fhxl0")]
@@ -665,20 +659,16 @@ position = Vector2(1224, -158)
 position = Vector2(-4185, -585)
 script = ExtResource("12_wab47")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FinishZone"]
-position = Vector2(183, -37.25)
-shape = SubResource("RectangleShape2D_mfhtj")
-
 [node name="Tip1" type="Label" parent="."]
-offset_left = -12.0
-offset_top = -89.0
-offset_right = 145.0
-offset_bottom = -9.0
+offset_left = 116.0
+offset_top = -76.0
+offset_right = 300.0
+offset_bottom = 4.0
 theme_override_fonts/font = ExtResource("13_wab47")
 theme_override_font_sizes/font_size = 8
 text = "Press R to cycle 
 abilites.
-Press F/ Left MB."
+Press F/ Left MB. to do action"
 
 [node name="Label" type="Label" parent="."]
 offset_left = 1180.0
@@ -697,6 +687,46 @@ offset_bottom = -374.0
 theme_override_fonts/font = ExtResource("13_wab47")
 theme_override_font_sizes/font_size = 8
 text = "Equip to dash."
+
+[node name="Label3" type="Label" parent="."]
+offset_left = -971.0
+offset_top = -412.0
+offset_right = -884.0
+offset_bottom = -389.0
+theme_override_fonts/font = ExtResource("13_wab47")
+theme_override_font_sizes/font_size = 8
+text = "dont let creatures fall down,
+it is coded badly and will restart"
+
+[node name="Label4" type="Label" parent="."]
+offset_left = -3664.0
+offset_top = -563.0
+offset_right = -3555.0
+offset_bottom = -533.0
+theme_override_fonts/font = ExtResource("13_wab47")
+theme_override_font_sizes/font_size = 8
+text = "					The End
+
+<-  CREDIT FOR ART"
+horizontal_alignment = 2
+
+[node name="Label5" type="Label" parent="."]
+offset_left = -4229.0
+offset_top = -603.0
+offset_right = -3825.0
+offset_bottom = -476.0
+theme_override_fonts/font = ExtResource("13_wab47")
+theme_override_font_sizes/font_size = 8
+text = "World tiles by Vaca Roxa
+slimepumpkin by quipinny
+cute ghost by quipinny
+decoration by Alcoholism
+dash bat by Ismartal
+char by escape-pixel
+the may be a few a forgot, sorry
+
+Code and ugly art by Ringee and EdelMilch"
+horizontal_alignment = 2
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("6_lqoaf")]
 position = Vector2(-3356, -504)

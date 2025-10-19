@@ -62,8 +62,7 @@ func _ready() -> void:
 	#auch hier bin ich noch nicht 100% aber im grunde verbinden wir hier eigenschaften von Klassen/Objekten mit unserem code
 	#wenn ein körper in [vision] kommt oder verläst wird die jeweilige funktion aufgerufen "_on_vision_body_entered" oder "_on_vision_body_exited"
 	# der Grund warum bei dir Vision nicht ging, ist ein wenig Komplex aber im grunde ist es auf eine schlechte Struktur in unserem Projekt zurück zu führen 
-	$vision.connect("body_entered", Callable(self, "_on_vision_body_entered"))
-	$vision.connect("body_exited", Callable(self, "_on_vision_body_exited"))
+
 	health_bar.max_value = health
 # wird normalerweies 60mal pro sekunde aufgerufen, meist für Physik und Movement verwendet. 
 func _physics_process(delta: float) -> void:

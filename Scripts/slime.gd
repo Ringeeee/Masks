@@ -6,7 +6,6 @@ extends CharacterBody2D
 @onready var detection: CollisionShape2D = $vision/CollisionShape2D
 @onready var damage_timer: Timer = $damage_timer
 @onready var health_bar: ProgressBar = $HealthBar
-@onready var bite_area: Area2D = $bite_area
 
 
 var target: Player

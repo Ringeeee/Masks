@@ -242,7 +242,7 @@ animations = [{
 size = Vector2(18, 63)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mx7d2"]
-size = Vector2(537, 50.25)
+size = Vector2(404, 50.25)
 
 [node name="Zombie" type="CharacterBody2D" groups=["Enemy"]]
 script = ExtResource("1_mx7d2")
@@ -271,7 +271,7 @@ collision_layer = 4
 collision_mask = 2
 
 [node name="vision_hitbox" type="CollisionShape2D" parent="vision"]
-position = Vector2(53.5, -36.875)
+position = Vector2(120, -36.875)
 shape = SubResource("RectangleShape2D_mx7d2")
 
 [node name="bite_timer" type="Timer" parent="."]

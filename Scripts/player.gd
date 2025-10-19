@@ -251,7 +251,3 @@ func _hide_all():
 	sword_sprite.hide()
 	dash_sprite.hide()
 	heal_sprite.hide()
-
-
-func _on_finish_zone_body_entered(body: Node2D) -> void:
-	pass # Replace with function body.

@@ -70,6 +70,8 @@ func _physics_process(delta: float) -> void:
 	health_bar.value = health
 	if not is_alive:	# Ein einfacher weg zu verhindern das nach dem Tot noch weitere sachen im code passieren 
 		return
+	if not is_on_floor():
+		velocity += get_gravity() * delta
 
 # wird pro frame aufgerufen, kann für viels verwendet werden. zb. Animation
 func _process(delta: float) -> void:

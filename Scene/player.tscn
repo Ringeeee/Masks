@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://chy0jw0qguwfi"]
+[gd_scene format=3 uid="uid://chy0jw0qguwfi"]
 
 [ext_resource type="Script" uid="uid://b6r486k7lkur4" path="res://Scripts/player.gd" id="1_y8w33"]
 [ext_resource type="Texture2D" uid="uid://cyaj1dcel67h" path="res://Assets/sprites/SHADOW Series - The Blind Huntress/Sprite Sheet/1 - Idle.png" id="2_58ae2"]
@@ -210,7 +210,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xsqt2")
 }],
-"loop": true,
+"loop": 1,
 "name": &"alt_attack",
 "speed": 10.0
 }, {
@@ -230,7 +230,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2dof7")
 }],
-"loop": true,
+"loop": 1,
 "name": &"attack",
 "speed": 10.0
 }, {
@@ -247,7 +247,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_nohji")
 }],
-"loop": true,
+"loop": 1,
 "name": &"bat_dash",
 "speed": 10.0
 }, {
@@ -282,7 +282,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1vqkc")
 }],
-"loop": false,
+"loop": 0,
 "name": &"death",
 "speed": 10.0
 }, {
@@ -323,7 +323,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2p1i5")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 10.0
 }, {
@@ -340,7 +340,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_q3k0r")
 }],
-"loop": true,
+"loop": 1,
 "name": &"jump",
 "speed": 10.0
 }, {
@@ -369,7 +369,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fm374")
 }],
-"loop": true,
+"loop": 1,
 "name": &"run",
 "speed": 10.0
 }]
@@ -383,33 +383,33 @@ height = 64.0
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_c31lq"]
 
-[node name="Player" type="CharacterBody2D" groups=["Player"]]
+[node name="Player" type="CharacterBody2D" unique_id=593952044 groups=["Player"]]
 process_mode = 3
 collision_layer = 6
 collision_mask = 7
 script = ExtResource("1_y8w33")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2103785359]
 position = Vector2(0, -12)
 scale = Vector2(0.8, 0.8)
 sprite_frames = SubResource("SpriteFrames_r6jsd")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=970577268]
 z_index = 5
 position = Vector2(-1.5, -18)
 shape = SubResource("RectangleShape2D_kelma")
 
-[node name="AttackArea" type="Area2D" parent="."]
+[node name="AttackArea" type="Area2D" parent="." unique_id=2013066482]
 monitoring = false
 
-[node name="sword_hitbox" type="CollisionShape2D" parent="AttackArea"]
+[node name="sword_hitbox" type="CollisionShape2D" parent="AttackArea" unique_id=1213965443]
 position = Vector2(32, -6)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_r6jsd")
 
-[node name="HealthBar2" type="ProgressBar" parent="."]
+[node name="HealthBar2" type="ProgressBar" parent="." unique_id=200590174]
 modulate = Color(0, 0, 0, 1)
 offset_left = -16.0
 offset_top = 3.0
@@ -418,7 +418,7 @@ offset_bottom = 11.0
 value = 100.0
 show_percentage = false
 
-[node name="HealthBar" type="ProgressBar" parent="."]
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=1702086204]
 modulate = Color(0.86343604, 5.318448e-06, 7.70092e-07, 1)
 offset_left = -15.0
 offset_top = 4.0
@@ -427,29 +427,29 @@ offset_bottom = 10.0
 value = 100.0
 show_percentage = false
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=1099785455]
 one_shot = true
 
-[node name="active_mask_symbol" type="Sprite2D" parent="."]
+[node name="active_mask_symbol" type="Sprite2D" parent="." unique_id=363659630]
 visible = false
 modulate = Color(0.99920946, 0.9817514, 0.9873107, 1)
 position = Vector2(-163, -98)
 scale = Vector2(50.00001, 30)
 texture = SubResource("CanvasTexture_c31lq")
 
-[node name="sword_sprite" type="Sprite2D" parent="."]
-position = Vector2(-163, -98)
+[node name="sword_sprite" type="Sprite2D" parent="." unique_id=1515188914]
+position = Vector2(-163, -131.00002)
 scale = Vector2(0.099999994, 0.1)
 texture = ExtResource("12_2dof7")
 
-[node name="dash_sprite" type="Sprite2D" parent="."]
-position = Vector2(-163, -98)
+[node name="dash_sprite" type="Sprite2D" parent="." unique_id=666968986]
+position = Vector2(-162.99998, -131)
 scale = Vector2(1.125, 1.1250004)
 texture = ExtResource("13_4ao7i")
 
-[node name="heal_sprite" type="Sprite2D" parent="."]
+[node name="heal_sprite" type="Sprite2D" parent="." unique_id=381805111]
 self_modulate = Color(0.5136595, 0.99268144, 0.5133737, 1)
-position = Vector2(-163, -98)
+position = Vector2(-162.99998, -131)
 texture = ExtResource("13_4ao7i")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -9,4 +9,4 @@ decoration by Alcoholism
 dash bat by Ismartal
 char by escape-pixel
 
-Code and ugly art by Ringee and EdelMilch
+Code and ugly art by Ringe and EdelMilch
